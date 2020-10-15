@@ -1,24 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import S3 from 'aws-s3-reactjs';
+
+const config = {
+  bucketName: 'react-upload-medias',
+  //dirName: 'media', /* optional */
+  region: 'us-east-1',
+  accessKeyId: 'AKIAJQNXMRBYJ2MYAO7A',
+  secretAccessKey: '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',
+  s3Url: 'https://react-upload-medias.s3.amazonaws.com/'
+}
+
+const ReactS3Client = new S3(config);
+
+function uploadFile(event){
+
+  var file = event.target.files[0];
+  console.log(file);
+  console.log(`uploading file (${file.name})...`);
+  ReactS3Client
+    .uploadFile(file, file.name)
+    .then(data => {
+      console.log("...upload finish")
+      console.log(data)
+    })
+    .catch(err => {
+      console.log("...upload error")
+      console.error(err)
+    })
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <span>AWS S3 Upload</span>
+      <br></br>
+      <input type="file" onChange={uploadFile}></input>
     </div>
   );
 }
