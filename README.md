@@ -1,4 +1,4 @@
-### Video about projet:
+### Video about project:
 ## https://www.youtube.com/watch?v=1U9Ohj3T4gI&t=3s
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
